@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  spark-jupyter:
+    build: .
+    container_name: spark_jupyter_legacy
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+      - ./output:/app/output
