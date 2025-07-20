@@ -10,14 +10,14 @@
 ### Ejercicio 2
 Si bien no tengo experiencia directa con Hadoop, sí instalé y trabajé con un clúster Apache Spark en modo standalone sobre tres instancias virtuales. En esa configuración definí un nodo como master y dos como workers, y ejecuté pipelines desde Airflow hacia ese entorno distribuido. Para responder estas preguntas me basé tanto en esa experiencia como en una investigación puntual sobre Hadoop y YARN.
 
---------------- Punto 1 -----------------
+#### Pregunta General - 1
 Investigué cómo funciona YARN y los schedulers que ofrece. Si tuviera que priorizar procesos productivos, usaría colas diferenciadas en el scheduler CapacityScheduler. La cola del pipeline productivo tendría mayor capacidad mínima, prioridad más alta y posiblemente activaría la opción de pre-emption si usara FairScheduler, para garantizar que siempre tenga recursos disponibles. También limitaría la cantidad de tareas exploratorias concurrentes para evitar saturar el cluster.
 
 Como estrategia, programaría los procesos productivos en ventanas de baja actividad, como la madrugada, para evitar competir por recursos con tareas exploratorias. También los aislaría temporalmente usando triggers o ventanas de ejecución programadas.
 
 Para orquestar esto, tengo experiencia usando Airflow y Dagster que permiten definir dependencias y controlar el momento exacto de ejecución de cada job.
 
---------------- Punto 2 -----------------
+#### Pregunta General - 2
 Sobre este punto, pensando en mi experiencia pasada veo 2 posibles causas
 - Esto se puede dar debido a una mala estrategia de particiones ya que las consultas podrían estar escaneando muchos más datos de los necesarios.
 - Bajo rendimiento en la acumulación de archivos pequeños (incluso dentro de las particiones) generados por las actualizaciones diarias. Esto impacta negativamente en la performance porque Spark debe manejar y leer gran cantidad de metadatos y archivos individuales.
@@ -31,7 +31,7 @@ Para mejorar esto, sugeriría:
 
 - Otro solución, no tan frecuente, que use en el pasado fue generar una replicación actualizada de la tabla con diferentes tipos de particionados armados particularmente para responder a diferentes tipos de acceso a los datos. La única desventaja de este caso es mantener la consistencia e integridad de los datos ya que el espacio de disco es barato hoy en día. 
 
---------------- Punto 3 -----------------
+#### Pregunta General - 3 
 Una posible configuración para cumplir con este punto sería:
 ```
 spark = SparkSession.builder \
