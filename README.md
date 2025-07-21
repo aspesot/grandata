@@ -4,7 +4,9 @@
 ## Resultados de los ejercicios
 ### Ejercicio 1
 - Punto 1: Monto total a facturar: $391367.00
+
 - Punto 2: El dataset en formato parquet pueden encontrarlo en la carpeta output. 
+```
 +---------+---------------+--------------------------------+
 |id_source|monto_facturado|id_md5                          |
 +---------+---------------+--------------------------------+
@@ -109,6 +111,8 @@
 |BCD      |337.0          |8539ef1fba74a70f5a77fcc3f25c1659|
 |047      |332.5          |2c4a8495407bfb55ce1a93970445bd38|
 +---------+---------------+--------------------------------+
+```
+
 - Punto 3: El histograma se puede encontrar en la carpeta output.
 ![alt text](output/histograma_llamadas_por_hora.png)
 
