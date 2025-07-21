@@ -6,6 +6,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV SPARK_VERSION=2.3.0
 ENV HADOOP_VERSION=2.7
 ENV PATH="/opt/spark/bin:$PATH"
+ENV SPARK_HOME="/opt/spark/bin"
 
 # Evitar prompts interactivos
 ENV DEBIAN_FRONTEND=noninteractive
